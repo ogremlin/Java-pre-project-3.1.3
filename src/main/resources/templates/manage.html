@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>Users Manager</title>
+</head>
+<body>
+<h2 align="right">
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+  </form>
+</h2>
+
+<div align="center">
+  <h2>Users Manager</h2>
+
+  <table border="2" cellpadding="5">
+    <tr>
+      <th>ID</th>
+      <th>UserName</th>
+      <th>Password</th>
+      <th>E-mail</th>
+      <th>Roles</th>
+    </tr>
+    <tr th:each="msg : ${messages}">
+      <td th:utext="${msg.getId()}">...</td>
+      <td th:utext="${msg.getUsername()}">...</td>
+      <td th:utext="${msg.getPassword()}">...</td>
+      <td th:utext="${msg.getEmail()}">...</td>
+      <td >
+        <th:block th:each="role : ${msg.getRoles()}">
+          &nbsp;<span th:text="${role.getRole()}"/>
+        </th:block>
+      </td>
+      <td>
+          <a th:href="@{/admin/update_form(id=${msg.id})}">Edit</a>
+          <a th:href="@{/admin/delete(id=${msg.id})}">Delete</a>
+
+      </td>
+    </tr>
+    <h2><a href="/admin/new_user">New User</a></h2>
+  </table>
+</div>
+</body>
+</html>

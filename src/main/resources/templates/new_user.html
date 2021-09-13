@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>Add new User</title>
+</head>
+<body>
+<h2 align="right">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</h2>
+<div align="center">
+  <h2>Add new User</h2>
+  <form method="POST" action="/new_user">
+    <table border="0" cellpadding="5">
+      <tr>
+        <td><label for="name">Name</label></td>
+        <td><input name="name" type="text" id="name"></td>
+      </tr>
+      <tr>
+        <td><label for="password">Password</label></td>
+        <td><input name="password" type="text" id="password"></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email</label></td>
+        <td><input name="email" type="text" id="email"></td>
+      </tr>
+      <tr>
+<!--        <select id="role" name="role">-->
+<!--          <option disabled>ROLES</option>-->
+<!--          <option selected value="1">ROLE_USER</option>-->
+<!--          <option th:value="2">ROLE_ADMIN</option>-->
+<!--          <option th:value="3">ROLE_ANY</option>-->
+<!--        </select>-->
+        <select multiple="multiple" name="role" required="required">
+          <option value="1">ADMIN</option>
+          <option selected value="2">USER</option>
+          <option value="3">ANY</option>
+        </select>
+
+      </tr>
+      <tr>
+        <td><input type="submit" value="Add User"></td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>

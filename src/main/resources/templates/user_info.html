@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Customer Manager</title>
+</head>
+<body>
+<h2 align="right">
+    <form th:action="@{/logout}" method="post">
+       <input type="submit" value="Logout"/>
+    </form>
+</h2>
+
+<div align="center" th:object="${user}">
+    <h2>User Profile</h2>
+
+<!--    <h2><a href="/new_user">New User</a></h2>-->
+<!--    <form th:action="@{/user(id=${user.getId()})}" th:object="${user}" method="post">-->
+    <table border="2" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>UserName</th>
+            <th>Password</th>
+            <th>E-mail</th>
+            <th>Roles</th>
+        </tr>
+        <tr>
+            <td th:utext="${user.getId()}">...</td>
+            <td th:utext="${user.getUsername()}">...</td>
+            <td th:utext="${user.getPassword()}">...</td>
+            <td th:utext="${user.getEmail()}">...</td>
+            <td >
+            <th:block th:each="role : ${user.getRoles()}">
+                &nbsp;<span th:text="${role.getRole()}"/>
+            </th:block>
+            </td>
+        </tr>
+    </table>
+    </form>
+
+</div>
+</body>
+</html>
