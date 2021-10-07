@@ -5,8 +5,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -36,10 +39,21 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    public String getRoles() {
+        StringBuilder s = new StringBuilder();
+        for (Role r : roles) {
+            if (s.length() != 0) {
+                s.append(" ");
+            }
+            s.append(r.getRole().split("_")[1]);
+        }
+        return s.toString();
+    }
+
 //  Переопределенные методы UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles;
     }
 
     @Override
@@ -71,15 +85,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", name='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", email='" + email + '\'' +
-//                ", roles=" + roles +
-//                '}';
-//    }
 }

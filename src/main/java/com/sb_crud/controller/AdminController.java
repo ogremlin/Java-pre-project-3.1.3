@@ -3,14 +3,15 @@ package com.sb_crud.controller;
 import com.sb_crud.model.User;
 import com.sb_crud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -26,6 +27,8 @@ public class AdminController {
 
     @GetMapping(value = "/admin/manage")
     public String printUsers(ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", userService.findUserByUsername(auth.getName()));
         model.addAttribute("messages", userService.findAll());
         return "manage";
     }
@@ -47,24 +50,24 @@ public class AdminController {
 
         return "redirect:/admin/manage";
     }
+
     @Transactional
-    @GetMapping("/admin/delete")
+    @DeleteMapping("/admin/delete/{id}")
     public String deleteUser(@RequestParam("id") long id) {
         userService.deleteUserById(id);
         return "redirect:/admin/manage";
     }
 
     @PostMapping(value = "/update_user")
-    public String updateUser(@RequestParam("id") long id, @RequestParam("username") String username, @RequestParam("password") String password,
-                             @RequestParam("email") String email, @RequestParam("role") Long role) {
+    public String updateUser(@RequestParam("id") long id, @RequestParam("nameEdit") String username, @RequestParam("passwordEdit") String password,
+                             @RequestParam("emailEdit") String email, @RequestParam("roles") ArrayList<Long> role) {
         User user = new User();
         user.setId(id);
         user.setUsername(username);
         user.setPassword(bCryptPasswordEncoder.encode(password));
         user.setEmail(email);
-        user.setRoles(Collections.singleton(userService.findRoleById(role)));
+        user.setRoles(role.stream().map((r) -> userService.findRoleById(r)).collect(Collectors.toSet()));
         userService.save(user);
-
         return "redirect:/admin/manage";
     }
 
@@ -73,6 +76,4 @@ public class AdminController {
         model.addAttribute("user", userService.findUserById(id));
         return "update_user";
     }
-
-
 }
