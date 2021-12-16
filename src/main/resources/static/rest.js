@@ -1,5 +1,5 @@
 function getAllUsers() {
-    fetch("/admin/users").then(
+    fetch("http://localhost:8080/admin/users").then(
         res => {
             res.json().then(
                 data => {
@@ -25,7 +25,7 @@ function getAllUsers() {
 }
 
 async function getOneUsers() {
-    let response = await fetch('/user/user');
+    let response = await fetch('http://localhost:8080/user/user');
     let user = await response.json();
     let temp = '';
     temp += '<tr>'
@@ -41,7 +41,7 @@ async function getOneUsers() {
 showNavbar();
 
 function showNavbar() {
-    fetch("/user/user")
+    fetch("http://localhost:8080/user/user")
         .then(response => response.json())
         .then(user => {
             document.getElementById("navbar_info").innerHTML = user.email + '  with roles:  ' + user.roles;
@@ -53,7 +53,7 @@ document.addEventListener('click', event => {
 // Обрабатываем конпу EDIT
     if (btnType === 'edit') {
         const id = event.target.dataset.id;
-        fetch("/admin/users/" + id)
+        fetch("http://localhost:8080/admin/users/" + id)
             .then(response => response.json())
             .then(data => {
                 document.querySelector("#idEdit").value = data.id;
@@ -66,7 +66,7 @@ document.addEventListener('click', event => {
     // Обрабатываем конпу EDIT в модальном окне EDIT
     if (btnType === 'submitEdit') {
         let roles = (document.getElementById("editRoles")).value;
-        let url = '/admin/users';
+        let url = 'http://localhost:8080/admin/users';
         //Работа с ролями
         let myRoleEdit = document.getElementById("editRoles");
         let rolesEdit = [];
@@ -107,7 +107,7 @@ document.addEventListener('click', event => {
     // Обрабатываем конпу DELETE
     if (btnType === 'delete') {
         const id = event.target.dataset.id;
-        const url = '/admin/users/' + id;
+        const url = 'http://localhost:8080/admin/users/' + id;
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -119,7 +119,7 @@ document.addEventListener('click', event => {
 // Кнопка DELETE в окне DELETE
     if (btnType === 'submitDelete') {
         let id = document.querySelector("#idDelete").value;
-        let url = '/admin/users/' + id;
+        let url = 'http://localhost:8080/admin/users/' + id;
         fetch(url, {
             method: 'DELETE',
             headers: {
@@ -151,7 +151,7 @@ document.addEventListener('click', event => {
                 roles.push(new role(option.value, option.text));
             }
         }
-        let url = '/admin/user';
+        let url = 'http://localhost:8080/admin/users';
         let user = {
             username: document.querySelector("#nameNew").value,
             password: document.querySelector("#passwordNew").value,
@@ -166,9 +166,7 @@ document.addEventListener('click', event => {
             },
             body: JSON.stringify(user)
         }).finally(() => {
-            console.log("Кнопка Add New User в вкладке New User");
             getAllUsers();
-            console.log("gggggggggggggg Кнопка Add New User в вкладке New User");
         });
     }
 

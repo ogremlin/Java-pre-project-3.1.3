@@ -1,5 +1,5 @@
 async function getOneUsers() {
-    let response = await fetch('/user/user');
+    let response = await fetch('http://localhost:8080/user/user');
     let user = await response.json();
     let temp = '';
     temp += '<tr>'
@@ -13,7 +13,7 @@ async function getOneUsers() {
 }
 
 function showNavbar() {
-    fetch("/user/user")
+    fetch("http://localhost:8080/user/user")
         .then(response => response.json())
         .then(user => {
             document.getElementById("navbar_info").innerHTML = user.email + '  with roles:  ' + user.roles;

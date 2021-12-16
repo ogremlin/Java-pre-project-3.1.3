@@ -4,51 +4,44 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sb_crud.model.User;
 import com.sb_crud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/users")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestApiController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/users")
-    public List<User> allUsers() {
-        return userService.findAll();
+    @GetMapping
+    public ResponseEntity<Iterable<User>> allUsers() {
+        return ResponseEntity.ok().body(userService.findAll());
     }
 
-    @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.findUserById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok().body(userService.findUserById(id));
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<User> newUser(@RequestBody User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok().body(user);
     }
 
-    @PutMapping("/users")
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok().body(user);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-         User user = userService.findUserById(id);
-         userService.deleteUserById(id);
-         return new ResponseEntity<>(user, HttpStatus.OK);
+         return ResponseEntity.ok().body(userService.deleteUserById(id));
     }
 
 }
