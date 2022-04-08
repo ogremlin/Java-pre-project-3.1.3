@@ -30,7 +30,7 @@
     <div class="col-10 p-0">
         <div class="tab-content bg-light p-2">
             <!-- Панель Admin-->
-            <div class="tab-pane fade show active pl-3" style="height: 700px;" id="admin_info"
+            <div class="tab-pane fade show active ml-3 mr-3" style="height: 700px;" id="admin_info"
                  role="tabpanel" aria-labelledby="admin_info">
                 <h1>Admin panel</h1>
                 <nav>
@@ -58,142 +58,142 @@
                                     <th>Delete</th>
                                 </tr>
                                 </thead>
-<!--&lt;!&ndash;                            Заполнение списка всех пользователей из базы-->
+                                <!--&lt;!&ndash;                            Заполнение списка всех пользователей из базы-->
                                 <tbody id="all_users_tbody">
-<!--                                       Модальное окно EDIT       -->
-                                        <div id="editModal"
-                                             class="modal fade" tabindex="-1" role="dialog"
-                                             aria-labelledby="TitleModalEdit" aria-hidden="true"
-                                             data-backdrop="static" data-keyboard="false">
-                                            <div class="modal-dialog modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="TitleModalEdit">Edit user</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
+                                <!--                                       Модальное окно EDIT       -->
+                                <div id="editModal"
+                                     class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="TitleModalEdit" aria-hidden="true"
+                                     data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="TitleModalEdit">Edit user</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
 
-                                                    <!-- Edit -->
+                                            <!-- Edit -->
 
-                                                    <div class="modal-body bg-white">
-                                                        <form id="formEditUser"
-                                                              class="form-signin mx-auto font-weight-bold text-center"
-                                                              style="width: 200px;">
-                                                            <p>
-                                                                <label for="idEdit">ID</label>
-                                                                <input class="form-control form-control-sm" type="text"
-                                                                       name="id" id="idEdit" readonly>
-                                                            </p>
-                                                            <p>
-                                                                <label for="nameEdit">Name</label>
-                                                                <input class="form-control form-control-sm" type="text"
-                                                                       name="nameEdit"
-                                                                       id="nameEdit" placeholder="First name" required
-                                                                       autofocus>
-                                                            </p>
-                                                            <p>
-                                                                <label for="passwordEdit">Password</label>
-                                                                <input class="form-control form-control-sm"
-                                                                       type="password"
-                                                                       name="passwordEdit"
-                                                                       id="passwordEdit" placeholder="Password"
-                                                                       required>
-                                                            </p>
-                                                            <p>
-                                                                <label for="emailEdit">Email</label>
-                                                                <input class="form-control form-control-sm" type="email"
-                                                                       name="emailEdit" id="emailEdit"
-                                                                       placeholder="Email" required>
-                                                            </p>
+                                            <div class="modal-body bg-white">
+                                                <form id="formEditUser"
+                                                      class="form-signin mx-auto font-weight-bold text-center"
+                                                      style="width: 200px;">
+                                                    <p>
+                                                        <label for="idEdit">ID</label>
+                                                        <input class="form-control form-control-sm" type="text"
+                                                               name="id" id="idEdit" readonly>
+                                                    </p>
+                                                    <p>
+                                                        <label for="nameEdit">Name</label>
+                                                        <input class="form-control form-control-sm" type="text"
+                                                               name="nameEdit"
+                                                               id="nameEdit" placeholder="First name" required
+                                                               autofocus>
+                                                    </p>
+                                                    <p>
+                                                        <label for="passwordEdit">Password</label>
+                                                        <input class="form-control form-control-sm"
+                                                               type="password"
+                                                               name="passwordEdit"
+                                                               id="passwordEdit" placeholder="Password"
+                                                               required>
+                                                    </p>
+                                                    <p>
+                                                        <label for="emailEdit">Email</label>
+                                                        <input class="form-control form-control-sm" type="email"
+                                                               name="emailEdit" id="emailEdit"
+                                                               placeholder="Email" required>
+                                                    </p>
 
-                                                            <p>
-                                                                <label>Role</label>
-                                                                <select id="editRoles" class="form-control form-control-sm" multiple size="3" required>
-                                                                    <option value="2" label="USER"></option>
-                                                                    <option value="1" label="ADMIN"></option>
-                                                                    <option value="3" label="ANY"></option>
-                                                                </select>
-                                                            </p>
-                                                        </form>
+                                                    <p>
+                                                        <label>Role</label>
+                                                        <select id="editRoles" class="form-control form-control-sm" multiple size="3" required>
+                                                            <option value="2" label="USER"></option>
+                                                            <option value="1" label="ADMIN"></option>
+                                                            <option value="3" label="ANY"></option>
+                                                        </select>
+                                                    </p>
+                                                </form>
 
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">
-                                                            Close
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary" form="formEditUser"
-                                                                data-btn="submitEdit">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="btn btn-primary" form="formEditUser"
+                                                        data-btn="submitEdit">
+                                                    Edit
+                                                </button>
                                             </div>
                                         </div>
-<!--                                     Конец  Модальное окно EDIT       -->
+                                    </div>
+                                </div>
+                                <!--                                     Конец  Модальное окно EDIT       -->
 
-<!--                                       Модальное окно DELETE       -->
-                                        <div id="deleteModal"
-                                             class="modal fade" tabindex="-1" role="dialog"
-                                             aria-labelledby="TitleModalDelete" aria-hidden="true"
-                                             data-backdrop="static" data-keyboard="false">
-                                            <div class="modal-dialog modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="TitleModalDelete">Delete user</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
+                                <!--                                       Модальное окно DELETE       -->
+                                <div id="deleteModal"
+                                     class="modal fade" tabindex="-1" role="dialog"
+                                     aria-labelledby="TitleModalDelete" aria-hidden="true"
+                                     data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="TitleModalDelete">Delete user</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
 
-                                                    <div class="modal-body bg-white">
-                                                        <form id="formDeleteUser"
-                                                              th:method="DELETE"
-                                                              class="form-signin mx-auto font-weight-bold text-center"
-                                                              style="width: 200px;">
-                                                            <p>
-                                                                <label for="idDelete">ID</label>
-                                                                <input class="form-control form-control-sm" type="text"
-                                                                       name="id" id="idDelete" readonly>
-                                                            </p>
-                                                            <p>
-                                                                <label for="nameDelete">Name</label>
-                                                                <input class="form-control form-control-sm" type="text"
-                                                                       name="name"
-                                                                       id="nameDelete" readonly
-                                                                       placeholder="First name" autofocus>
-                                                            </p>
-                                                            <p>
-                                                                <label for="emailDelete">Email</label>
-                                                                <input class="form-control form-control-sm" type="email"
-                                                                       name="email" id="emailDelete" readonly
-                                                                       placeholder="Email">
-                                                            </p>
-                                                            <p>
-                                                                <label>Role</label>
-                                                                <select id="deleteRoles" class="form-control form-control-sm" multiple size="2" required>
-                                                                    <option value="2" label="USER"></option>
-                                                                    <option value="1" label="ADMIN"></option>
-                                                                    <option value="3" label="ANY"></option>
-                                                                </select>
-                                                            </p>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="submit" form="formDeleteUser"
-                                                                class="btn btn-danger" data-btn="submitDelete">
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <div class="modal-body bg-white">
+                                                <form id="formDeleteUser"
+                                                      th:method="DELETE"
+                                                      class="form-signin mx-auto font-weight-bold text-center"
+                                                      style="width: 200px;">
+                                                    <p>
+                                                        <label for="idDelete">ID</label>
+                                                        <input class="form-control form-control-sm" type="text"
+                                                               name="id" id="idDelete" readonly>
+                                                    </p>
+                                                    <p>
+                                                        <label for="nameDelete">Name</label>
+                                                        <input class="form-control form-control-sm" type="text"
+                                                               name="name"
+                                                               id="nameDelete" readonly
+                                                               placeholder="First name" autofocus>
+                                                    </p>
+                                                    <p>
+                                                        <label for="emailDelete">Email</label>
+                                                        <input class="form-control form-control-sm" type="email"
+                                                               name="email" id="emailDelete" readonly
+                                                               placeholder="Email">
+                                                    </p>
+                                                    <p>
+                                                        <label>Role</label>
+                                                        <select id="deleteRoles" class="form-control form-control-sm" multiple size="2" required>
+                                                            <option value="2" label="USER"></option>
+                                                            <option value="1" label="ADMIN"></option>
+                                                            <option value="3" label="ANY"></option>
+                                                        </select>
+                                                    </p>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close
+                                                </button>
+                                                <button type="submit" form="formDeleteUser"
+                                                        class="btn btn-danger" data-btn="submitDelete">
+                                                    Delete
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
                                 </tbody>
                             </table>
 
@@ -240,7 +240,7 @@
                 </div>
             </div>
             <!--Панель User-->
-            <div class="tab-pane fade show active border" style="height: 700px;" id="user_info" role="tabpanel"
+            <div class="tab-pane fade pl-3" style="height: 700px;" id="user_info" role="tabpanel"
                  aria-labelledby="user_info">
                 <h1>User information-page</h1>
                 <div class="pl-3 pt-1 d-flex border-top border-left border-right">

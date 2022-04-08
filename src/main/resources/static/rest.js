@@ -1,8 +1,35 @@
-function getAllUsers() {
-    fetch("http://localhost:8080/admin/users").then(
+function getRole(roles) {
+    let result = ''
+    let str_json = JSON.stringify(roles)
+    if (str_json.indexOf('ROLE_ADMIN') !== -1) {
+        result += 'ADMIN  '
+    }
+    if (str_json.indexOf('ROLE_USER') !== -1) {
+        result += 'USER  '
+    }
+    if (str_json.indexOf('ROLE_ANY') !== -1) {
+        result += 'ANY  '
+    }
+    return result
+}
+
+function showNavbar() {
+    fetch("http://localhost:8080/user/user")
+        .then(response => response.json())
+        .then(user => {
+            document.getElementById("navbar_info").innerHTML = user.email + '  with roles:  ' + getRole(user.roles);
+        });
+}
+// Заполняем НАВБАР
+
+
+async function getAllUsers() {
+    await new Promise(resolve => setTimeout(resolve, 200));
+    await fetch("http://localhost:8080/admin/users").then(
         res => {
             res.json().then(
                 data => {
+                    // setTimeout(getAllUsers, 100);
                     if (data.length > 0) {
                         let temp = '';
                         data.forEach((user) => {
@@ -11,7 +38,7 @@ function getAllUsers() {
                             temp += '<td>' + user.username + '</td>'
                             temp += '<td>******</td>'
                             temp += '<td>' + user.email + '</td>'
-                            temp += '<td>' + user.roles + '</td>'
+                            temp += '<td>' + getRole(user.roles) + '</td>'
                             temp += '<td> <button role=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#editModal\" data-btn=\"edit\" data-id=' + user.id + '>Edit</button> </td>'
                             temp += '<td> <button role=\"button\" class=\"btn btn-danger btn-sm\" data-toggle=\"modal\" data-target=\"#deleteModal\" data-btn=\"delete\" data-id=' + user.id + '>Delete</button> </td>'
                             temp += '</tr>';
@@ -33,21 +60,10 @@ async function getOneUsers() {
     temp += '<td>' + user.username + '</td>'
     temp += '<td>******</td>'
     temp += '<td>' + user.email + '</td>'
-    temp += '<td>' + user.roles + '</td>'
+    temp += '<td>' + getRole(user.roles) + '</td>'
     temp += '</tr>';
     document.getElementById("user_tbody").innerHTML = temp;
 }
-
-showNavbar();
-
-function showNavbar() {
-    fetch("http://localhost:8080/user/user")
-        .then(response => response.json())
-        .then(user => {
-            document.getElementById("navbar_info").innerHTML = user.email + '  with roles:  ' + user.roles;
-        });
-}
-// Заполняем НАВБАР
 document.addEventListener('click', event => {
     const btnType = event.target.dataset.btn;
 // Обрабатываем конпу EDIT
@@ -172,6 +188,6 @@ document.addEventListener('click', event => {
 
 
 })
-
+showNavbar();
 getAllUsers();
 getOneUsers();

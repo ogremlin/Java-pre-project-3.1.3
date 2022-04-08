@@ -26,6 +26,13 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public User update(User user) {
+        if(!user.getPassword().equals(findUserById(user.getId()).getPassword())) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+        return userRepository.save(user);
+    }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -43,7 +50,6 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
-        System.out.println(user.toString());
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }

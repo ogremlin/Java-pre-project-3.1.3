@@ -1,17 +1,14 @@
 package com.sb_crud.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sb_crud.model.User;
 import com.sb_crud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin/users")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestApiController {
 
     @Autowired
@@ -19,7 +16,8 @@ public class RestApiController {
 
     @GetMapping
     public ResponseEntity<Iterable<User>> allUsers() {
-        return ResponseEntity.ok().body(userService.findAll());
+        List<User> userList = userService.findAll();
+        return ResponseEntity.ok().body(userList);
     }
 
     @GetMapping("/{id}")
@@ -29,14 +27,12 @@ public class RestApiController {
 
     @PostMapping
     public ResponseEntity<User> newUser(@RequestBody User user) {
-        userService.save(user);
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body(userService.save(user));
     }
 
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        userService.save(user);
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body(userService.update(user));
     }
 
     @DeleteMapping("/{id}")

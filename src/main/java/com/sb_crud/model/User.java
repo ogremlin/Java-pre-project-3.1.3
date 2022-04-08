@@ -1,5 +1,6 @@
 package com.sb_crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,10 +8,12 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -32,12 +35,19 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
-
-    public String getRoles() {
-        return roles.stream().map((s) -> s.getRole().substring(5)).collect(Collectors.joining(" "));
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
     }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
 //  Переопределенные методы UserDetails
     @Override
